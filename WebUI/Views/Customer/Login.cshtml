@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/_Shared/_LayoutPage.cshtml";
+}
+<link href="/css/AdminCheck.css" rel="stylesheet" />
+<div class="menu-bg">
+    <div class="wrap" style="box-shadow: none;">
+        <nav>
+            <ul class="sf-menu">
+                <li class="current"><a href="/">Anasayfa</a></li>
+                <li><a href="/Home/Album">Albümler</a></li>
+                <li><a href="/Campaign/Index">Kampanyalı Albümler</a></li>
+                <li><a href="/Home/Contact">İletişim</a></li>
+            </ul>
+            <div class="clear"></div>
+        </nav>
+        <div class="soc-icons">
+            <ul>
+                <li><a href="">Sosyal Ağlar&nbsp;</a></li>
+                <li><a href="https://tr-tr.facebook.com/"><img src="/images/facebook.png" alt=""></a></li>
+                <li><a href="https://twitter.com/login?lang=tr"><img src="/images/twitter.png" alt=""></a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="main">
+        <div class="login-page">
+            <div class="login_panel">
+                <h3>ÜYELİK GİRİŞİ</h3>
+                <form asp-controller="Customer" asp-action="Login" method="post">
+                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                        <input type="text" class="form-control" name="KullaniciAdi" placeholder="Email Adresiniz veya Telefon No :" required />
+                    </div>
+                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                        <input type="password" class="form-control" name="KullaniciSifre" placeholder="Şifreniz :" required />
+                    </div>
+                    <div class="buttons"><div><button class="grey" type="submit">Giriş Yap</button></div></div>                   
+                </form>
+            </div>
+            <div class="login_panel" style="float:right">
+                <h3>ÜYELİK İŞLEMLERİ</h3>
+                <form asp-controller="Customer" asp-action="Register" method="post">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                                        <input type="text" class="form-control" name="NameSurname" placeholder="Adınız Soyadınız :" required />
+                                    </div>
+                                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                                        <input type="text" class="form-control" name="Email" placeholder="E-Mail :" required />
+                                    </div>
+
+                                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                                        <input type="text" class="form-control" name="Phone" placeholder="Telefon :" required />
+                                    </div>
+                                    <div class="col-md-12" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                                        <input type="password" class="form-control" name="Password" placeholder="Şifreniz :" required />
+                                    </div>
+                                    <div class="col-md-12 odemediv" style="text-align:center;margin-top:15px;margin-bottom:15px;">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td style="width:60px;">
+                                                    <div class="switch">
+                                                        <input id="Sms" type="checkbox" name="Advert" class="switch-input" />
+                                                        <label for="Sms" class="switch-label"></label>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:middle;text-align:left;padding-left:15px;padding-bottom:5px;">Reklam ve Sms Gönderimini Kabul Ediyorum.</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="search"><div><button class="grey" type="submit">Üye Ol</button></div></div>
+                    <div class="clear"></div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" style="margin-top:15px;text-align:center">
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+    </div>
+</div>

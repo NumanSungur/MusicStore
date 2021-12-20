@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Shared/_LayoutPage.cshtml";
+}
+<link href="/css/EticaretCss.css" rel="stylesheet" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<div class="menu-bg">
+    <div class="wrap" style="box-shadow: none;">
+        <nav>
+            <ul class="sf-menu">
+                <li class="current"><a href="/">Anasayfa</a></li>
+                <li><a href="/Home/Album">Albümler</a></li>
+                <li><a href="/Campaign/Index">Kampanyalı Albümler</a></li>
+                <li><a href="/Home/Contact">İletişim</a></li>
+            </ul>
+            <div class="clear"></div>
+        </nav>
+        <div class="soc-icons">
+            <ul>
+                <li><a href="">Sosyal Ağlar&nbsp;</a></li>
+                <li><a href="https://tr-tr.facebook.com/"><img src="/images/facebook.png" alt=""></a></li>
+                <li><a href="https://twitter.com/login?lang=tr"><img src="/images/twitter.png" alt=""></a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="main">
+
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="TextHeader">@Model.Name</div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-md-12" style="border:solid 0.3mm #e4e4e4">
+                <img src="/images/Products/@Model.MainImages" width="100%" />
+            </div>
+            @foreach (var item in ViewBag.Resimler)
+            {
+                <div class="col-md-2">
+                    <img src="/images/Products/detail/@item.Name" width="100%" />
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="col-md-12" style="font-weight:bold;font-size:22px;color:#4d0202">@Model.Price.ToString("C")</div><br />
+                @if (ViewBag.VaryantGroup != null)
+                {
+                    <div class="col-md-12" style="font-weight:bold;">@ViewBag.VaryantGroup :</div>
+                    <div class="col-md-12" style="margin-top:2px;">
+                        <style>
+                            input[type="radio"]:checked + label {
+                                font-weight: bold;
+                            }
+                        </style>
+                        @{ int s = 0;}
+                        @foreach (var item in ViewBag.Varyant)
+                        {
+                            s++;
+                            if (s == 1)
+                            {
+                                <input type="radio" id="@item.Id" name="VaryantRadio" class="RadioVarya" value="@item.Id" checked>
+                                <label for="@item.Id">@item.Name - @item.Price.ToString("C")</label><br>
+                            }
+                            else
+                            {
+                                <input type="radio" id="@item.Id" name="VaryantRadio" class="RadioVarya" value="@item.Id">
+                                <label for="@item.Id">@item.Name - @item.Price.ToString("C")</label><br>
+                            }
+                        }
+                    </div>
+                }
+                <div class="col-md-12" style="font-weight:bold;font-size:22px;color:#4d0202">@Model.Description</div><br />
+                <div class="col-md-12" style="font-weight:bold;font-size:22px;color:#4d0202">@Model.Explanation</div>
+                <script>
+                    function DetailSepetEkle(ProductIDs) {
+
+                        var Gelen = $("input[type='radio'][name='VaryantRadio']:checked").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "/Basket/DetailSepetInsert",
+                            data: { ID: '' + ProductIDs + '', varyant: '' + Gelen + '' },
+                            dataType: "json",
+                            success: function (responseS) {
+                                $("#SepetKontrol").load("/PartialView/SepetAdetKontrol");
+                                alert(responseS);
+                            },
+                            failure: function (responseS) {
+                            },
+                            error: function (responseS) {
+                            }
+                        });
+                    };
+                </script>
+                <div class="col-md-12" style="margin-top:15px;"><button type="button" class="btn btn-primary form-control" onclick="DetailSepetEkle(@Model.Id)">SEPETE EKLE</button></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+</div>

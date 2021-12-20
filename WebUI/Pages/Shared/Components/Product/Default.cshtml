@@ -1,0 +1,23 @@
+﻿@if (Model.ResultStatus == Cores.Results.ComplexTypes.ResultStatus.Info)
+{
+    <div class="col-md-12" style="padding:25px;text-align:center;font-size:25px;">ÜRÜN BULUNAMADI.</div>
+}
+else
+{
+    @foreach (var item in Model.Data)
+    {
+        <div class="listview_1_of_2 images_1_of_2" style="position:relative;">
+            <div class="listimg listimg_2_of_1">
+                <a href=""><img src="/images/Products/@item.MainImages"></a>
+            </div>
+            <div class="text list_2_of_1">
+                <h2>@item.Name</h2>
+                <p>@item.Explanation</p>
+                <span class="price" style="text-decoration: line-through; color:lightcoral "><sup>@item.Price.ToString("C")&nbsp;</sup></span>
+                <span class="price" style="color:darkslategrey"><sup>@item.Discount.ToString("C")&nbsp;</sup></span>
+                <div class="button"><span><a style="color:red" href="/urun/@WebUI.YaziTemizle.Temizle(item.Name)/@item.Id">İncele</a></span></div>
+                <div class="button"><span><a href="#" onclick="JSSepetEkle(@item.Id)">Sepete Ekle</a></span></div>
+            </div>
+        </div>
+    }
+}

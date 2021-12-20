@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/_Shared/_LayoutPage.cshtml";
+}
+
+<div class="menu-bg">
+    <div class="wrap" style="box-shadow: none;">
+        <nav>
+            <ul class="sf-menu">
+                <li class="current"><a href="/">Anasayfa</a></li>
+                <li><a href="/Home/Album">Albümler</a></li>
+                <li><a href="/Campaign/Index">Kampanyalı Albümler</a></li>
+                <li><a href="/Home/Contact">İletişim</a></li>
+            </ul>
+            <div class="clear"></div>
+        </nav>
+        <div class="soc-icons">
+            <ul>
+                <li><a href="">Sosyal Ağlar&nbsp;</a></li>
+                <li><a href="https://tr-tr.facebook.com/"><img src="/images/facebook.png" alt=""></a></li>
+                <li><a href="https://twitter.com/login?lang=tr"><img src="/images/twitter.png" alt=""></a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="main">
+        <div class="special">
+            <h2>Kampanyalı Albümler</h2>
+            <div class="section group">
+                @if (Model.ResultStatus == Cores.Results.ComplexTypes.ResultStatus.Info)
+                {
+                    <div class="col-md-12" style="padding:25px;text-align:center;font-size:25px;">ÜRÜN BULUNAMADI.</div>
+                }
+                else
+                {
+                    @foreach (var item in Model.Data)
+                    {
+                        <div class="grid_1_of_3 spe-images_1_of_4" style="position:relative;">
+                            <div style="position:absolute;left:0;top:0;background-color:rgb(111 3 3);padding:5px;text-align:center;display:block;color:white">
+                                @Html.Raw((item.Price - item.Discount).ToString("N"))
+                            </div>
+                            <a href="/Home/Detail"><img src="/images/Products/@item.MainImages"></a>
+                            <a href="/Home/Detail"><h3>@item.Name</h3></a>
+                            <span class="price" style="text-decoration: line-through; color:lightcoral "><sup>@item.Price.ToString("C")&nbsp;</sup></span>
+                            <span class="price" style="color:darkslategrey"><sup>@item.Discount.ToString("C")&nbsp;</sup></span>
+                            <div class="btn">
+                                <a style="color:red" href="/urun/@WebUI.YaziTemizle.Temizle(item.Name)/@item.Id">İncele</a>
+                            </div>
+                            <div class="btn">
+                                <a onclick="JSSepetEkle(@item.Id)">Sepete Ekle</a>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="clear"></div>
+            </div>
+            <h2 class="bg">Bize Özel Albümler</h2>
+            <div class="section group">
+                @if (Model.ResultStatus == Cores.Results.ComplexTypes.ResultStatus.Info)
+                {
+                    <div class="col-md-12" style="padding:25px;text-align:center;font-size:25px;">ÜRÜN BULUNAMADI.</div>
+                }
+                else
+                {
+                    @foreach (var item in Model.Data)
+                    {
+                        <div class="grid_1_of_3 spe-images_1_of_4" style="position:relative;">
+                            <div style="position:absolute;left:0;top:0;background-color:rgb(111 3 3);padding:5px;text-align:center;display:block;color:white">
+                                @Html.Raw((item.Price - item.Discount).ToString("N"))
+                            </div>
+                            <a href="/Home/Detail"><img src="/images/Products/@item.MainImages"></a>
+                            <a href="/Home/Detail"><h3>@item.Name</h3></a>
+                            <span class="price" style="text-decoration: line-through; color:lightcoral "><sup>@item.Price.ToString("C")&nbsp;</sup></span>
+                            <span class="price" style="color:darkslategrey"><sup>@item.Discount.ToString("C")&nbsp;</sup></span>
+                            <div class="btn">
+                                <a style="color:red" href="/urun/@WebUI.YaziTemizle.Temizle(item.Name)/@item.Id">İncele</a>
+                            </div>
+                            <div class="btn">
+                                <a onclick="JSSepetEkle(@item.Id)">Sepete Ekle</a>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

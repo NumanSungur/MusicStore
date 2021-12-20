@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MusicX</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="icon" href="/images/logo.png" type="image/ico" />
+    <!--nav-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/script.js" type="text/javascript"></script>
+    <script src="/js/superfish.js"></script>
+    <script src="/js/JSONAJAXSEPET.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/"><img src="/images/logo.png" alt="" /></a>
+                </div>
+                <div class="header_top_right">
+                    <div class="search_box" style="width:450px;">
+                        <form>
+                            <input type="text" autocomplete="off" name="searchTags" id="searchTags" value="Ürün Arayın" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search for Products';}">
+                            <script>
+                                jQuery.expr[':'].contains = function (a, i, m) {
+                                    return jQuery(a).text().toUpperCase()
+                                        .indexOf(m[3].toUpperCase()) >= 0;
+                                };
+                                $(document).ready(function () {
+                                    $("#searchTags").keyup(function () {
+                                        var value = $("#searchTags").val();
+                                        if (value.length == 0) {
+                                            $(".content").show();
+                                            $(".special").show();
+                                        } else {
+                                            $(".content").hide();
+                                            $(".special").hide();
+                                            $(".content:contains(" + value + ")").show();
+                                            $(".special:contains(" + value + ")").show();
+                                        }
+                                    });
+                                });
+                            </script>
+                        </form>
+                    </div>
+                    <div class="shopping_cart">
+                        <div class="cart">
+                            <a href="/Basket" id="SepetKontrol" title="Sepetim" rel="nofollow"></a>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#SepetKontrol").load("/PartialView/SepetAdetKontrol");
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="drp-dwn" >
+                        <select onchange="window.location=this.options[this.selectedIndex].value">
+                            <option value="">TR</option>
+                            <option value="">EN</option>                           
+                        </select>
+                    </div>
+                    <div class="login" style="background: #ebebeb; width:200px;">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <ul>
+                                <li> <span><a href="/Customer/Hesabım">Hesabım(@User.Identity.Name)</a></span></li>
+                                <li><span><a href="/Customer/LogOut">Çıkış Yap</a></span></li>
+                            </ul>                                                    
+                        }
+                        else
+                        {
+                            <span><a href="/Customer/Login"><img src="/images/login.png" alt="" title="Giriş" />Giriş Yap</a></span>
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </div>
+    @RenderBody()
+    <div class="wrap">
+        <div class="footer">
+            @await Component.InvokeAsync("Footer")          
+        </div>
+        <div class="footer1-bg">
+            <div class="copy">
+                <p>© 2021 Musicx . All rights Reserved | Design by NMS PRODUCTION</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

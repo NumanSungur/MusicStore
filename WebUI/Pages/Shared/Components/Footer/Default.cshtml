@@ -1,0 +1,17 @@
+﻿@foreach (var item in Model.Data)
+{
+    <div class="section group">
+        <div class="grid_1_of_4 images_1_of_4" style="width:25%" ">
+            <h3>Bizi Arayın</h3>
+            <h4 class="num">@item.CallUs</h4>
+        </div>
+        <div class="grid_1_of_4 images_1_of_4" style="width:30%" ">
+            <h3>Haber Bülteni</h3>
+            <p>@item.NewsLetters</p>
+        </div>
+        <div class="grid_1_of_4 images_1_of_4" style="width:25%">
+            <h3>Hakkımızda</h3>
+            <p>@item.AboutUs</p>
+        </div>
+    </div>
+}
